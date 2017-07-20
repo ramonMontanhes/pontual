@@ -1,0 +1,14 @@
+{
+  "name": "pontual",
+  "version": "1.0.0",
+  "description": "Web app to log worker time i/o",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "milligram": "^1.3.0"
+  }
+}
