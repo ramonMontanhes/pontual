@@ -2,15 +2,193 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Pontual</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
         <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css">
+        <link rel="stylesheet" href="./css/custom.css">
+        <!-- Incializa o App Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/4.1.5/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBx0sD9fOYehun0Kq2hCbzlg4hF4_HO0qo",
+            authDomain: "pontual-9763c.firebaseapp.com",
+            databaseURL: "https://pontual-9763c.firebaseio.com",
+            projectId: "pontual-9763c",
+            storageBucket: "pontual-9763c.appspot.com",
+            messagingSenderId: "388856072581"
+        };
+        firebase.initializeApp(config);
+        </script>
+        <!-- [START google_config] -->
+        <!-- CLIENT ID do app criado no Console de aplicações do Google -->
+        <meta name="google-signin-client_id" content="225617918580-iuojcjan4bv2lp10l0t23jb8rvbhthub.apps.googleusercontent.com">
+        <meta name="google-signin-cookiepolicy" content="single_host_origin">
+        <meta name="google-signin-scope" content="profile email">
+        <!-- [END google_config] -->
+        <!-- Google Sign In -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+                <script type="text/javascript">
+        // [START googlecallback]
+        function onSignIn(googleUser) {
+            //console.log('Google Auth Response', googleUser);
+            // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+            var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
+                unsubscribe();
+                // Check if we are already signed-in Firebase with the correct user.
+                if (!isUserEqual(googleUser, firebaseUser)) {
+                    // Build Firebase credential with the Google ID token.
+                    // [START googlecredential]
+                    var credential = firebase.auth.GoogleAuthProvider.credential(googleUser.getAuthResponse().id_token);
+                    // [END googlecredential]
+                    // Sign in with credential from the Google user.
+                    // [START authwithcred]
+                    firebase.auth().signInWithCredential(credential).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // The email of the user's account used.
+                        var email = error.email;
+                        // The firebase.auth.AuthCredential type that was used.
+                        var credential = error.credential;
+                        // [START_EXCLUDE]
+                        if (errorCode === 'auth/account-exists-with-different-credential') {
+                            alert('You have already signed up with a different auth provider for that email.');
+                            // If you are using multiple auth providers on your app you should handle linking
+                            // the user's accounts here.
+                        } else {
+                            console.error(error);
+                        }
+                            // [END_EXCLUDE]
+                    });
+                    // [END authwithcred]
+                } else {
+                    console.log('User already signed-in Firebase.');
+                }
+            });
+        }
+        // [END googlecallback]
+
+        /**
+        * Check that the given Google user is equals to the given Firebase user.
+        */
+        // [START checksameuser]
+        function isUserEqual(googleUser, firebaseUser) {
+        if (firebaseUser) {
+            var providerData = firebaseUser.providerData;
+            for (var i = 0; i < providerData.length; i++) {
+                if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+                providerData[i].uid === googleUser.getBasicProfile().getId()) {
+                    // We don't need to reauth the Firebase connection.
+                    return true;
+                }
+            }
+        }
+        return false;
+        }
+        // [END checksameuser]
+
+        /**
+        * Handle the sign out button press.
+        */
+        function handleSignOut() {
+            var googleAuth = gapi.auth2.getAuthInstance();
+            googleAuth.signOut().then(function() {
+                firebase.auth().signOut();
+            });
+        }
+
+        /**
+        * initApp handles setting up UI event listeners and registering Firebase auth listeners:
+        *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
+        *    out, and that is where we update the UI.
+        */
+
+</script>
+<script src="./node_modules/moment/moment.js"></script>
+<script src="./js/core.js"></script>
+<script>
+
+        function initApp() {
+        // Auth state changes.
+        // [START authstatelistener]
+            firebase.auth().onAuthStateChanged(function(user){
+                if (user) {
+                // User is signed in.
+                var displayName = user.displayName;
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                var providerData = user.providerData;
+                // [START_EXCLUDE]
+                //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+                //document.getElementById('signout').disabled = false;
+                //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+                //console.log(JSON.stringify(user, null, '  '));
+                console.log('Console.log: '+user.displayName);
+                document.getElementById('usuario-corrente').textContent = "Olá " + user.displayName + "!";
+                var userImg = document.getElementById("foto-usuario");
+                userImg.src = user.photoURL;
+                document.getElementById('login-btn').classList.add('hidden');
+                document.getElementById('logout-btn').classList.remove('hidden');
+                //document.getElementById('login-btn').
+                updateUserInterface();
+                // [END_EXCLUDE]
+                } else {
+                // User is signed out.
+                // [START_EXCLUDE]
+                //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+                //document.getElementById('signout').disabled = true;
+                //document.getElementById('quickstart-account-details').textContent = 'null';
+                document.getElementById('login-btn').classList.remove('hidden');
+                document.getElementById('logout-btn').classList.add('hidden');
+                var userImg = document.getElementById("foto-usuario");
+                userImg.src = "https://www.atomix.com.au/media/2015/06/atomix_user31.png";
+                document.getElementById('usuario-corrente').textContent = "Olá!";
+                // [END_EXCLUDE]
+                }
+            });
+            // [END authstatelistener]
+            document.getElementById('logout-btn').addEventListener('click', handleSignOut, false);
+        }
+            window.onload = function() {
+                initApp();
+            };
+        </script>
     </head>
     <body>
-        <div class="container">
+        <div class="navbar">
+            <div class="siteinfo">
+                <div class="applogo"></div>
+            </div>
+            <div class="userinfo">
+                <img id="foto-usuario" src="" alt="">
+                <h5 id="usuario-corrente">Olá!</h5>
+                <button id="login-btn" data-onsuccess="onSignIn" data-theme="dark" class="g-signin2" type="submit"></button>
+                
+                <button id="logout-btn" class="button-primary hidden" type="submit">Sair</button>
+            </div>
         </div>
+        
+        <div class="container">
+            <div class="pontos">
+                <div>DATA</div>
+                <div>ENTRADA</div>
+                <div>SAÍDA (ALMOÇO)</div>
+                <div>ENTRADA (ALMOÇO)</div>
+                <div>SAÍDA</div>
+            </div>
+            <section id="pontos">
+            </section>
+            <div class="horario">
+                <button id="registrar-horario-btn" onClick="onButtonClick()" class="button-primary" type="submit">Entrada</button>
+            </div>
+        </div>
+        
     </body>
 </html>

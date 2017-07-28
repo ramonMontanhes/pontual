@@ -1,0 +1,86 @@
+html, body {
+    height: 100%;
+}
+body { background-color: #dcdcdc; }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 90px;
+    position: static;
+    padding: 20px;
+    box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.3);
+    background-color: #FFF;
+}
+.siteinfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.siteinfo div {
+    width: 200px;
+    height: 50px;
+    background-color: #9b4dca;
+}
+.userinfo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#logout-btn, #registrar-horario-btn {
+    margin: 0;
+    border-radius: 0px;
+}
+#login-btn {
+    margin: 0;
+    border-radius: 0px;
+    background-color: unset;
+    border: unset;
+    color: unset;
+    cursor: unset;
+    font-size: unset;
+    font-weight: unset;
+    height: unset;
+    letter-spacing: unset;
+    line-height: unset;
+    padding: unset;
+    text-align: unset;
+    text-decoration: unset;
+    text-transform: unset;
+    white-space: unset;
+}
+.userinfo h5 {
+    margin: 0;
+    padding: 0px 20px;
+}
+.hidden {
+    display: none !important;
+}
+.pontos {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 0px 10px 0px;
+    border-bottom: 0.01em solid;
+    margin-bottom: 10px;
+}
+.pontos div {
+    width: 20%;
+    font-weight: 600;
+    text-align: center;
+}
+.dia {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+.dia div {
+    width: 20%;
+}
+#foto-usuario {
+    width: 50px;
+    border-radius: 50%;
+}
+.horario {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
