@@ -5,16 +5,13 @@
         <title>Pontual</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
         <link rel='shortcut icon' type='image/x-icon' href='./favicon.ico' />
-=======
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
         <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css">
         <link rel="stylesheet" href="./css/custom.css">
         <!-- Incializa o App Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/4.1.5/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
         <script>
         // Initialize Firebase
         var config = {
@@ -34,8 +31,8 @@
         <meta name="google-signin-scope" content="profile email">
         <!-- [END google_config] -->
         <!-- Google Sign In -->
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <script type="text/javascript">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>        
+        <script type="text/javascript">
         // [START googlecallback]
         function onSignIn(googleUser) {
             //console.log('Google Auth Response', googleUser);
@@ -75,7 +72,6 @@
             });
         }
         // [END googlecallback]
-
         /**
         * Check that the given Google user is equals to the given Firebase user.
         */
@@ -94,7 +90,6 @@
         return false;
         }
         // [END checksameuser]
-
         /**
         * Handle the sign out button press.
         */
@@ -104,18 +99,15 @@
                 firebase.auth().signOut();
             });
         }
-
         /**
         * initApp handles setting up UI event listeners and registering Firebase auth listeners:
         *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
         *    out, and that is where we update the UI.
         */
-
 </script>
 <script src="./node_modules/moment/moment.js"></script>
 <script src="./js/core.js"></script>
-<script>
-
+    <script>
         function initApp() {
         // Auth state changes.
         // [START authstatelistener]
@@ -177,8 +169,7 @@
                 
                 <button id="logout-btn" class="button-primary hidden" type="submit">Sair</button>
             </div>
-        </div>
-        
+        </div>        
         <div class="container">
             <div class="pontos">
                 <div>DATA</div>
@@ -192,7 +183,6 @@
             <div class="horario">
                 <button id="registrar-horario-btn" onClick="onButtonClick()" class="button-primary" type="submit">Entrada</button>
             </div>
-        </div>
-        
+        </div>        
     </body>
 </html>
