@@ -47,7 +47,6 @@ function registraHorarios(horarios) {
     var mes = (hoje.getMonth() + 1) < 10 ? '0'+ (hoje.getMonth() + 1) :'' + (hoje.getMonth() + 1);
     var dia = hoje.getDate();
 
-<<<<<<< HEAD
     var horaAtual = Object.assign({}, horarios);
 
     if (horarios.entrada == 0) {
@@ -66,63 +65,24 @@ function registraHorarios(horarios) {
         horaAtual.saida = Date.now();
         document.getElementById('registrar-horario-btn').disabled = false;
         document.getElementById('registrar-horario-btn').style.display = "none";
-=======
-    console.log('horarios: ' + horarios.entrada);
-    console.log('horarios: ' + horarios.saidaAlmoco);
-    console.log('horarios: ' + horarios.entradaAlmoco);
-    console.log('horarios: ' + horarios.saida);
-
-    var horaAtual = Object.assign({}, horarios);
-
-    if (horaAtual.entrada == 0) {
-        horaAtual.entrada = Date.now()
-        var theDiv = document.createElement('div');
-        theDiv.setAttribute("id", 'dia-'+dia);
-        theDiv.setAttribute('class', 'dia');
-        theDiv.innerHTML = '<div>'+dia+'/'+mes+'/'+ano+'</div>'+
-                            '<div>'+horaAtual.entrada+'</div>'+
-                            '<div></div>'+
-                            '<div></div>'+
-                            '<div></div>';
-        console.log(theDiv);
-        document.getElementById('pontos').appendChild(theDiv);
-    } else if (horaAtual.entrada != 0 && horaAtual.saidaAlmoco == 0) {
-        horaAtual.saidaAlmoco = Date.now();
-    } else if (horaAtual.entrada != 0 && horaAtual.saidaAlmoco != 0 && horaAtual.entradaAlmoco == 0) {
-        horaAtual.entradaAlmoco = Date.now();
-    } else if (horaAtual.entrada != 0 && horaAtual.saidaAlmoco != 0 && horaAtual.entradaAlmoco != 0 && horaAtual.saida == 0) {
-        horaAtual.saida = Date.now();
-    } else if (horaAtual.entrada != 0 && horaAtual.saidaAlmoco != 0 && horaAtual.entradaAlmoco != 0 && horaAtual.saida != 0) {
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     }
 
     var userId = firebase.auth().currentUser.uid;
     var refString = generateRef(ano, mes, dia, userId);
     var updates = {};
     updates[refString] = horaAtual;
-<<<<<<< HEAD
     loadMonthDays(listUserDays);
-=======
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     return firebase.database().ref().update(updates);
 }
 
 // Quando o botao eh clicado, faz o request ao database (usando `lerHorarios()`) e processa os resultados (usando `registraHorarios()`)
 function onButtonClick() {
-<<<<<<< HEAD
     document.getElementById('registrar-horario-btn').disabled = true;
     lerHorarios(registraHorarios);
 }
 
 function updateUserInterface() {
     //inicializa quando a página principal é aberta
-=======
-    lerHorarios(registraHorarios);
-}
-
-
-function updateUserInterface() {
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     lerHorarios(modificaElementos);
     loadMonthDays(listUserDays);
 }
@@ -141,10 +101,6 @@ function modificaElementos(horarios) {
 }
 
 function loadMonthDays(callback) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     var hoje = new Date();
     var ano = hoje.getFullYear();
     var mes = (hoje.getMonth() + 1) < 10 ? '0'+ (hoje.getMonth() + 1) :'' + (hoje.getMonth() + 1);
@@ -168,10 +124,6 @@ function loadMonthDays(callback) {
 }
 
 function listUserDays(usersDays) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     var hoje = new Date();
     var ano = hoje.getFullYear();
     var mes = (hoje.getMonth() + 1) < 10 ? '0'+ (hoje.getMonth() + 1) :'' + (hoje.getMonth() + 1);
@@ -180,17 +132,12 @@ function listUserDays(usersDays) {
     
     //console.log(usersDays);
     for (var dia in usersDays) { // dia e objeto
-<<<<<<< HEAD
-=======
-        //if (usersDays.hasOwnProperty(dia)) {
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
         var listaHorariosDoDia = usersDays[dia];
         conteudoHtml += '<div id="dia-'+dia+'" class="dia">';
         for (var user in listaHorariosDoDia ) { // usuário e objeto
             var hora = listaHorariosDoDia[user];
             if (user == userId) {
                 conteudoHtml += '<div>'+dia+'/'+mes+'/'+ano+'</div>';
-<<<<<<< HEAD
                 conteudoHtml += '<div>'+ (hora.entrada != 0 ? moment.unix(moment(hora.entrada).unix()).format('HH:mm:ss') : "-") +'</div>';
                 conteudoHtml += '<div>'+ (hora.saidaAlmoco != 0 ? moment.unix(moment(hora.saidaAlmoco).unix()).format('HH:mm:ss') : "-") +'</div>';
                 conteudoHtml += '<div>'+ (hora.entradaAlmoco != 0 ? moment.unix(moment(hora.entradaAlmoco).unix()).format('HH:mm:ss') : "-") +'</div>';
@@ -198,15 +145,6 @@ function listUserDays(usersDays) {
             }
         }
         conteudoHtml += '</div>';
-=======
-                for (var momento in hora) { // momento (entrada/almoco/retorno/saida)
-                    conteudoHtml += '<div>'+hora[momento]+'</div>';
-                }
-            }
-        }
-        conteudoHtml += '</div>';
-        //}
->>>>>>> 3119ac8443ce8fcc6847981ff125091ea8920b99
     }
     document.getElementById('pontos').innerHTML = conteudoHtml;
 }
