@@ -6,10 +6,17 @@ body { background-color: #dcdcdc; }
     display: flex;
     justify-content: space-between;
     height: 90px;
-    position: static;
+    position: fixed;
     padding: 20px;
     box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.3);
     background-color: #FFF;
+    width: 100%;
+    z-index: 10;
+}
+.app-data {
+    margin-top: 90px;
+    position: absolute;
+    width: 100%;
 }
 .siteinfo {
     display: flex;
